@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angel A | Penetration Tester & Ethical Hacker</title>
+  <meta name="description" content="Angel A - Junior Penetration Tester & VAPT Analyst. Web & Network Security, Vulnerability Assessment, Red Teaming. PTES-based assessments, OWASP, MITRE ATT&CK.">
+  <meta name="keywords" content="Penetration Tester, Ethical Hacker, VAPT, Web Security, Red Team, Vulnerability Assessment">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#0f172a',
+            accent: '#22d3ee',
+            accentGreen: '#22c55e',
+            accentRed: '#ef4444',
+            slate: { 850: '#172033', 950: '#0b1120' }
+          },
+          animation: { 'fade-in': 'fadeIn 0.6s ease-out forwards', 'glow': 'glow 2s ease-in-out infinite alternate' },
+          keyframes: { fadeIn: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }, glow: { '0%': { boxShadow: '0 0 15px rgba(34, 211, 238, 0.4)' }, '100%': { boxShadow: '0 0 25px rgba(34, 211, 238, 0.7)' } } }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .bg-grid { background-image: linear-gradient(rgba(34, 211, 238, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.04) 1px, transparent 1px); background-size: 40px 40px; }
+    .bg-hero-glow { background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34, 211, 238, 0.15), transparent 50%), radial-gradient(ellipse 60% 40% at 90% 50%, rgba(34, 211, 238, 0.06), transparent 45%); }
+    .reveal { opacity: 0; transform: translateY(24px); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-1 { transition: opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s; }
+    .reveal-2 { transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s; }
+    .reveal-3 { transition: opacity 0.5s ease-out 0.3s, transform 0.5s ease-out 0.3s; }
+    .reveal-4 { transition: opacity 0.5s ease-out 0.4s, transform 0.5s ease-out 0.4s; }
+    .btn-glow:hover { box-shadow: 0 0 24px rgba(34, 211, 238, 0.5), 0 0 48px rgba(34, 211, 238, 0.2); }
+    .cursor-blink::after { content: '|'; animation: blink 1s step-end infinite; color: #22d3ee; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .profile-wrap { animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(34, 211, 238, 0.1); }
+    .img-glow { box-shadow: 0 0 40px rgba(34, 211, 238, 0.25), 0 0 80px rgba(34, 211, 238, 0.08); }
+    .nav-link, .nav a { transition: color 0.2s, transform 0.2s; }
+    .nav a:hover { transform: translateX(4px); }
+    .card-bg-cyan { background: linear-gradient(145deg, rgba(15,23,42,0.98) 0%, rgba(34,211,238,0.06) 50%, rgba(15,23,42,0.95) 100%); position: relative; overflow: hidden; }
+    .card-bg-cyan::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 0% 0%, rgba(34,211,238,0.08) 0%, transparent 50%); pointer-events: none; }
+    .card-bg-green { background: linear-gradient(145deg, rgba(15,23,42,0.98) 0%, rgba(34,197,94,0.06) 50%, rgba(15,23,42,0.95) 100%); position: relative; overflow: hidden; }
+    .card-bg-green::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 100% 0%, rgba(34,197,94,0.06) 0%, transparent 50%); pointer-events: none; }
+    .card-bg-slate { background: linear-gradient(160deg, rgba(30,41,59,0.7) 0%, rgba(15,23,42,0.95) 100%); position: relative; overflow: hidden; }
+    .card-bg-slate::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(34,211,238,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.02) 1px, transparent 1px); background-size: 24px 24px; pointer-events: none; }
+    .card-bg-cert { background: linear-gradient(145deg, rgba(34,197,94,0.12) 0%, rgba(15,23,42,0.95) 50%); position: relative; overflow: hidden; }
+    .card-bg-cert::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 100% 100%, rgba(34,197,94,0.1) 0%, transparent 45%); pointer-events: none; }
+    .card-bg-dark { background: linear-gradient(160deg, rgba(23,32,51,0.9) 0%, rgba(11,17,32,0.98) 100%); position: relative; overflow: hidden; }
+    .card-bg-dark::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 80% 20%, rgba(34,211,238,0.04) 0%, transparent 40%); pointer-events: none; }
+    .section-alt { background: linear-gradient(180deg, rgba(15,23,42,0.5) 0%, rgba(11,17,32,0.8) 100%); }
+    .about-card { background: linear-gradient(145deg, rgba(23,32,51,0.6) 0%, rgba(15,23,42,0.9) 100%); border: 1px solid rgba(34,211,238,0.1); }
+    #experience .timeline-card { overflow: visible; }
+    .profile-img-trigger { cursor: pointer; display: block; }
+    .profile-img-trigger:focus { outline: none; }
+    #profile-lightbox { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+    #profile-lightbox.open { opacity: 1; visibility: visible; }
+    .lightbox-protected { -webkit-user-select: none; user-select: none; -webkit-user-drag: none; user-drag: none; pointer-events: auto; }
+    @media (max-width: 768px) { .profile-wrap { animation: none; } }
+  </style>
+</head>
+<body class="bg-dark text-slate-200 antialiased">
+  <div class="bg-grid fixed inset-0 pointer-events-none z-0"></div>
+  <div class="bg-hero-glow fixed inset-0 pointer-events-none z-0"></div>
+
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-dark/90 backdrop-blur-md border-b border-slate-700/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+      <a href="#hero" class="text-xl font-bold text-accent tracking-tight">Angel A</a>
+      <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-slate-300 hover:bg-slate-800" aria-label="Menu">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+      <div id="nav-links" class="hidden md:flex items-center gap-6 lg:gap-8 nav">
+        <a href="#about" class="text-slate-400 hover:text-accent">About</a>
+        <a href="#skills" class="text-slate-400 hover:text-accent">Skills</a>
+        <a href="#experience" class="text-slate-400 hover:text-accent">Hands on Training</a>
+        <a href="#projects" class="text-slate-400 hover:text-accent">Projects</a>
+        <a href="#certifications" class="text-slate-400 hover:text-accent">Certifications</a>
+        <a href="#contact" class="text-slate-400 hover:text-accent">Contact</a>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-700/50 bg-slate-950/98">
+      <div class="px-4 py-3 flex flex-col gap-2">
+        <a href="#about" class="nav-link py-2 text-slate-400 hover:text-accent">About</a>
+        <a href="#skills" class="nav-link py-2 text-slate-400 hover:text-accent">Skills</a>
+        <a href="#experience" class="nav-link py-2 text-slate-400 hover:text-accent">Hands on Training</a>
+        <a href="#projects" class="nav-link py-2 text-slate-400 hover:text-accent">Projects</a>
+        <a href="#certifications" class="nav-link py-2 text-slate-400 hover:text-accent">Certifications</a>
+        <a href="#contact" class="nav-link py-2 text-slate-400 hover:text-accent">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="relative z-10">
+    <section id="hero" class="min-h-screen flex flex-col justify-center px-4 sm:px-6 pt-24 pb-16 relative">
+      <div class="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+        <div class="flex-1 order-2 lg:order-1 text-center lg:text-left">
+          <p class="text-accent font-mono text-sm mb-2 opacity-90 reveal reveal-1">$ whoami</p>
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2 reveal reveal-2">Angel A</h1>
+          <p class="text-xl sm:text-2xl text-accent font-semibold mb-4 reveal reveal-2">Penetration Tester | Ethical Hacker</p>
+          <p class="text-slate-400 mb-2 reveal reveal-3">Find weaknesses before attackers do.</p>
+          <p class="text-slate-300 font-mono text-base sm:text-lg min-h-[2rem] mb-8 reveal reveal-3"><span id="typing-text" class="text-accent"></span><span class="cursor-blink"></span></p>
+          <div class="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 mb-8 reveal reveal-4">
+            <a href="#projects" class="btn-glow inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg bg-accent/15 border border-accent/50 text-accent font-semibold hover:bg-accent/25 transition text-sm sm:text-base shadow-lg shadow-accent/10">View Work</a>
+            <a href="#contact" class="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg bg-accentGreen/15 border border-accentGreen/50 text-accentGreen font-semibold hover:bg-accentGreen/25 transition text-sm sm:text-base shadow-lg shadow-accentGreen/10">Contact Me</a>
+          </div>
+          <div class="flex justify-center lg:justify-start gap-3 reveal reveal-4">
+            <a href="https://linkedin.com/in/angel-arerath" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-lg border border-slate-600 text-slate-400 hover:text-accent hover:border-accent/50 hover:scale-110 transition" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+            <a href="https://github.com/angel71004" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-lg border border-slate-600 text-slate-400 hover:text-accent hover:border-accent/50 hover:scale-110 transition" aria-label="GitHub"><i data-lucide="github" class="w-5 h-5"></i></a>
+            <a href="mailto:angelrameshan2004@gmail.com" class="p-2.5 rounded-lg border border-slate-600 text-slate-400 hover:text-accent hover:border-accent/50 hover:scale-110 transition" aria-label="Email"><i data-lucide="mail" class="w-5 h-5"></i></a>
+          </div>
+        </div>
+        <div class="flex-shrink-0 order-1 lg:order-2 reveal reveal-2">
+          <button type="button" class="profile-img-trigger profile-wrap relative inline-block text-left border-0 p-0 bg-transparent" aria-label="View full photo">
+            <div class="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden border-2 border-accent/30 img-glow bg-slate-800">
+              <img src="profile.png" alt="Angel A - Penetration Tester" class="w-full h-full object-cover object-top" width="256" height="256" loading="eager" draggable="false" oncontextmenu="return false">
+            </div>
+            <div class="absolute -inset-1 rounded-2xl border border-accent/20 -z-10 opacity-50"></div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30">
+      <div class="max-w-4xl mx-auto">
+        <div class="about-card rounded-2xl p-6 sm:p-8 card-hover">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-8 relative z-10">
+            <div class="sm:w-32 flex-shrink-0 mx-auto sm:mx-0">
+              <button type="button" class="profile-img-trigger block w-full border-0 p-0 bg-transparent reveal" aria-label="View full photo">
+                <img src="profile.png" alt="Angel A" class="w-28 h-28 sm:w-32 sm:h-32 rounded-xl object-cover object-top border-2 border-accent/30 shadow-lg" draggable="false" oncontextmenu="return false">
+              </button>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">Why I Do This</h2>
+              <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-6 reveal"></div>
+              <div class="reveal text-slate-300 leading-relaxed space-y-4">
+              <p>I think like an attacker so defenders can sleep better. My job isn’t to tick boxes—it’s to find the one flaw that could become a breach, then explain it clearly so teams can fix it.</p>
+              <p>I’ve spent hundreds of hours in labs and real assessments: breaking web apps, chaining network misconfigs, and writing reports that translate technical risk into business impact. I’m at my best when the scope is messy and the stakes are high.</p>
+              <p>If you’re building a red team, scaling VAPT, or need someone who can own an assessment from scope to sign-off, <span class="text-accent font-medium">I’m the person you’re looking for.</span></p>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30 section-alt">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">What I Use</h2>
+        <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-8 sm:mb-10 reveal"></div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div class="reveal reveal-1 p-4 sm:p-5 rounded-xl border border-slate-600/60 hover:border-accent/40 card-hover card-bg-cyan relative z-10">
+            <h3 class="text-accent font-semibold mb-3 flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4"></i> Web Exploitation</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">SQLi</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">XSS</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">IDOR</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">Auth Testing</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">Session Mgmt</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">Business Logic</span>
+            </div>
+          </div>
+          <div class="reveal reveal-2 p-4 sm:p-5 rounded-xl border border-slate-600/60 hover:border-accentGreen/40 card-hover card-bg-green relative z-10">
+            <h3 class="text-accent font-semibold mb-3 flex items-center gap-2"><i data-lucide="network" class="w-4 h-4"></i> Network Security</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full text-xs bg-accentGreen/10 text-accentGreen border border-accentGreen/30">Port Scanning</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accentGreen/10 text-accentGreen border border-accentGreen/30">Service Enum</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accentGreen/10 text-accentGreen border border-accentGreen/30">Misconfig Analysis</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accentGreen/10 text-accentGreen border border-accentGreen/30">FIM</span>
+            </div>
+          </div>
+          <div class="reveal reveal-3 p-4 sm:p-5 rounded-xl border border-slate-600/60 hover:border-accent/40 card-hover card-bg-slate relative z-10">
+            <h3 class="text-accent font-semibold mb-3 flex items-center gap-2"><i data-lucide="wrench" class="w-4 h-4"></i> Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Burp Suite</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Nmap</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Metasploit</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Nessus</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">OWASP ZAP</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">SQLMap</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Wireshark</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Kali Linux</span>
+            </div>
+          </div>
+          <div class="reveal reveal-2 p-4 sm:p-5 rounded-xl border border-slate-600/60 hover:border-accentRed/40 card-hover card-bg-dark relative z-10">
+            <h3 class="text-accent font-semibold mb-3 flex items-center gap-2"><i data-lucide="code" class="w-4 h-4"></i> Programming</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full text-xs bg-accentRed/10 text-accentRed border border-accentRed/30">Python</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accentRed/10 text-accentRed border border-accentRed/30">Bash</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accentRed/10 text-accentRed border border-accentRed/30">SQL</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accentRed/10 text-accentRed border border-accentRed/30">Git</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-accentRed/10 text-accentRed border border-accentRed/30">Linux</span>
+            </div>
+          </div>
+          <div class="reveal reveal-4 p-4 sm:p-5 rounded-xl border border-slate-600/60 hover:border-accent/40 card-hover card-bg-slate relative z-10 sm:col-span-2 lg:col-span-1">
+            <h3 class="text-accent font-semibold mb-3 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i> Methodologies</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">PTES</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">OWASP</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">MITRE ATT&CK</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">CVSS v3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">Hands on Training</h2>
+        <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-8 sm:mb-10 reveal"></div>
+        <div class="space-y-8 sm:space-y-10">
+          <div class="reveal reveal-1 timeline-card relative pl-6 sm:pl-8 ml-2 sm:ml-3 border-l-2 border-accent/50 card-hover rounded-r-xl py-4 pr-4 card-bg-cyan">
+            <div class="absolute -left-2 top-0 w-3 h-3 rounded-full bg-accent ring-4 ring-dark shrink-0"></div>
+            <h3 class="text-base sm:text-lg font-semibold text-white relative z-10">Formal PT Training</h3>
+            <p class="text-accent text-sm relative z-10">LinkedIn Learning · 26+ hours</p>
+            <p class="mt-2 text-slate-400 text-sm relative z-10">Built end-to-end attack chains with Metasploit and Nmap, and delivered client-ready reports with CVSS and PTES structure—the kind that get handed to management.</p>
+          </div>
+          <div class="reveal reveal-2 timeline-card relative pl-6 sm:pl-8 ml-2 sm:ml-3 border-l-2 border-accent/50 card-hover rounded-r-xl py-4 pr-4 card-bg-green">
+            <div class="absolute -left-2 top-0 w-3 h-3 rounded-full bg-accent ring-4 ring-dark shrink-0"></div>
+            <h3 class="text-base sm:text-lg font-semibold text-white relative z-10">50+ Attack Labs</h3>
+            <p class="text-accent text-sm relative z-10">TryHackMe & HackTheBox</p>
+            <p class="mt-2 text-slate-400 text-sm relative z-10">Web exploitation, privilege escalation, and network pivoting in timed environments. Finished the Junior Penetration Tester path—proof I can perform under scope and time pressure.</p>
+          </div>
+        </div>
+        <div class="mt-10 sm:mt-12 reveal reveal-3">
+          <h3 class="text-lg sm:text-xl font-semibold text-white mb-4">Education</h3>
+          <div class="space-y-3 sm:space-y-4">
+            <div class="p-4 rounded-xl border border-slate-600/60 card-hover card-bg-slate relative z-10">
+              <p class="font-semibold text-white">MCA (Pursuing)</p>
+              <p class="text-accent text-sm">LEAD College, Palakkad · 2025–2027</p>
+            </div>
+            <div class="p-4 rounded-xl border border-slate-600/60 card-hover card-bg-slate relative z-10">
+              <p class="font-semibold text-white">BCA</p>
+              <p class="text-accent text-sm">Kannur University · 2022–2025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30 section-alt">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">Built & Shipped</h2>
+        <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-8 sm:mb-10 reveal"></div>
+        <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
+          <div class="reveal reveal-1 p-4 sm:p-6 rounded-xl border border-slate-700/50 bg-slate-850/50 hover:border-accent/30 card-hover">
+            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">CyberShell-Studio</h3>
+            <p class="text-slate-400 text-sm mb-3">One toolkit to run recon and enumeration the way PTES expects—so assessors spend less time on repetitive steps and more on finding issues. Cuts manual recon time significantly.</p>
+            <a href="https://github.com/angel71004/CyberShell-Studio" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-accent text-sm hover:underline"><i data-lucide="external-link" class="w-4 h-4"></i> View on GitHub</a>
+          </div>
+          <div class="reveal reveal-2 p-4 sm:p-6 rounded-xl border border-slate-700/50 bg-slate-850/50 hover:border-accent/30 card-hover">
+            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">Linux Security Audit Tool</h3>
+            <p class="text-slate-400 text-sm mb-3">Automates the boring part of host hardening: 25+ CIS-style checks, privilege-escalation hints, and reports that tell admins exactly what to fix and why.</p>
+            <a href="https://github.com/angel71004/Linux-Security-Audit-Tool" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-accent text-sm hover:underline"><i data-lucide="external-link" class="w-4 h-4"></i> View on GitHub</a>
+          </div>
+          <div class="reveal reveal-3 p-4 sm:p-6 rounded-xl border border-slate-600/60 hover:border-accent/40 card-hover card-bg-slate relative z-10">
+            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">File Integrity Monitor (HIDS)</h3>
+            <p class="text-slate-400 text-sm mb-3">When something changes on disk, you know. SHA256-backed monitoring across hundreds of files—built for teams that care about detection and IR.</p>
+            <a href="https://github.com/angel71004/Linux-File-Integrity-Monitor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-accent text-sm hover:underline"><i data-lucide="external-link" class="w-4 h-4"></i> View on GitHub</a>
+          </div>
+          <div class="reveal reveal-4 p-4 sm:p-6 rounded-xl border border-slate-600/60 hover:border-accent/40 card-hover card-bg-dark relative z-10">
+            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">SSH Log Analyzer</h3>
+            <p class="text-slate-400 text-sm mb-3">Turn raw auth logs into actionable alerts. Tracks brute-force patterns and noisy IPs so SOC can respond instead of digging through log dumps.</p>
+            <a href="https://github.com/angel71004/Linux-SSH-Log-Analyzer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-accent text-sm hover:underline"><i data-lucide="external-link" class="w-4 h-4"></i> View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">Credentials</h2>
+        <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-8 sm:mb-10 reveal"></div>
+        <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+          <a href="https://www.coursera.org/account/accomplishments/verify/6J6ZECJ64NZE" target="_blank" rel="noopener noreferrer" class="reveal reveal-1 p-3 sm:p-4 rounded-xl border border-accentGreen/40 flex items-center gap-3 card-hover hover:border-accent/50 transition group card-bg-cert relative z-10">
+            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accentGreen shrink-0 relative z-10"></i>
+            <div class="flex-1 min-w-0 relative z-10"><p class="font-semibold text-white text-sm sm:text-base group-hover:text-accent transition">Foundations of Cybersecurity</p><p class="text-xs text-slate-400">Google · Issued Feb 2026</p></div>
+            <i data-lucide="external-link" class="w-4 h-4 text-slate-500 shrink-0 group-hover:text-accent transition relative z-10"></i>
+          </a>
+          <a href="https://www.coursera.org/account/accomplishments/verify/KPZ3FM62W3TP" target="_blank" rel="noopener noreferrer" class="reveal reveal-2 p-3 sm:p-4 rounded-xl border border-accentGreen/40 flex items-center gap-3 card-hover hover:border-accent/50 transition group card-bg-cert relative z-10">
+            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accentGreen shrink-0 relative z-10"></i>
+            <div class="flex-1 min-w-0 relative z-10"><p class="font-semibold text-white text-sm sm:text-base group-hover:text-accent transition">Build a free website with WordPress</p><p class="text-xs text-slate-400">Coursera · Issued Nov 2025</p></div>
+            <i data-lucide="external-link" class="w-4 h-4 text-slate-500 shrink-0 group-hover:text-accent transition relative z-10"></i>
+          </a>
+          <a href="https://www.theforage.com/completion-certificates/ifobHAoMjQs9s6bKS/gmf3ypEXBj2wvfQWC_ifobHAoMjQs9s6bKS_69291c511c638149c9dc2136_1764305351759_completion_certificate.pdf" target="_blank" rel="noopener noreferrer" class="reveal reveal-3 p-3 sm:p-4 rounded-xl border border-accentGreen/40 flex items-center gap-3 card-hover hover:border-accent/50 transition group card-bg-cert relative z-10 sm:col-span-2">
+            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accentGreen shrink-0 relative z-10"></i>
+            <div class="flex-1 min-w-0 relative z-10"><p class="font-semibold text-white text-sm sm:text-base group-hover:text-accent transition">Tata – Cybersecurity Analyst Job Simulation</p><p class="text-xs text-slate-400">Forage · Issued Nov 2025</p></div>
+            <i data-lucide="external-link" class="w-4 h-4 text-slate-500 shrink-0 group-hover:text-accent transition relative z-10"></i>
+          </a>
+          <div class="reveal reveal-4 p-3 sm:p-4 rounded-xl border border-slate-600/60 flex items-center gap-3 card-hover card-bg-slate relative z-10">
+            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0"></i>
+            <div><p class="font-semibold text-white text-sm sm:text-base">Fortinet Certified Fundamentals in Cybersecurity</p><p class="text-xs text-slate-400">Valid till 2028</p></div>
+          </div>
+          <div class="reveal reveal-4 p-3 sm:p-4 rounded-xl border border-slate-600/60 flex items-center gap-3 card-hover card-bg-dark relative z-10">
+            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0"></i>
+            <div><p class="font-semibold text-white text-sm sm:text-base">Cisco – Introduction to Cybersecurity</p></div>
+          </div>
+          <div class="reveal reveal-4 p-3 sm:p-4 rounded-xl border border-slate-600/60 flex items-center gap-3 card-hover card-bg-slate relative z-10 sm:col-span-2">
+            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0"></i>
+            <div><p class="font-semibold text-white text-sm sm:text-base">Ethical Hacking & Vulnerability Analysis</p><p class="text-xs text-slate-400">LinkedIn Learning</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30 section-alt">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">Get in Touch</h2>
+        <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-8 sm:mb-10 reveal"></div>
+        <div class="reveal reveal-1 space-y-6 about-card rounded-2xl p-6 sm:p-8">
+          <p class="text-slate-400 text-sm sm:text-base">Hiring for a security role, or need a VAPT? Let’s talk.</p>
+          <form id="contact-form" class="space-y-3 sm:space-y-4">
+            <input type="text" name="name" placeholder="Name" class="w-full px-4 py-2.5 sm:py-3 rounded-lg bg-slate-850/80 border border-slate-600 text-white placeholder-slate-500 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 text-sm sm:text-base transition">
+            <input type="email" name="email" placeholder="Email" class="w-full px-4 py-2.5 sm:py-3 rounded-lg bg-slate-850/80 border border-slate-600 text-white placeholder-slate-500 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 text-sm sm:text-base transition">
+            <textarea name="message" rows="4" placeholder="Message" class="w-full px-4 py-2.5 sm:py-3 rounded-lg bg-slate-850/80 border border-slate-600 text-white placeholder-slate-500 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 resize-none text-sm sm:text-base transition"></textarea>
+            <button type="submit" class="btn-glow w-full py-2.5 sm:py-3 rounded-lg bg-accent/15 border border-accent text-accent font-semibold hover:bg-accent/25 transition text-sm sm:text-base shadow-lg shadow-accent/10">Send Message</button>
+          </form>
+          <div class="flex flex-wrap gap-4 sm:gap-6 pt-4">
+            <a href="mailto:angelrameshan2004@gmail.com" class="flex items-center gap-2 text-slate-400 hover:text-accent text-sm sm:text-base transition"><i data-lucide="mail" class="w-4 h-4 shrink-0"></i> <span class="break-all">angelrameshan2004@gmail.com</span></a>
+            <a href="tel:+918921650325" class="flex items-center gap-2 text-slate-400 hover:text-accent text-sm sm:text-base transition"><i data-lucide="phone" class="w-4 h-4 shrink-0"></i> +91 89216 50325</a>
+            <a href="https://linkedin.com/in/angel-arerath" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-slate-400 hover:text-accent text-sm sm:text-base transition"><i data-lucide="linkedin" class="w-4 h-4 shrink-0"></i> LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-6 sm:py-8 px-4 border-t border-slate-700/30">
+      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+        <p class="text-slate-500 text-xs sm:text-sm text-center sm:text-left">© Angel A. All rights reserved.</p>
+        <div class="flex gap-4">
+          <a href="https://linkedin.com/in/angel-arerath" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-accent transition p-1 rounded hover:scale-110" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+          <a href="https://github.com/angel71004" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-accent transition p-1 rounded hover:scale-110" aria-label="GitHub"><i data-lucide="github" class="w-5 h-5"></i></a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div id="profile-lightbox" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90" role="dialog" aria-modal="true" aria-label="Profile photo view" tabindex="-1">
+    <div class="absolute inset-0 lightbox-protected" onclick="document.getElementById('profile-lightbox').classList.remove('open')" oncontextmenu="return false"></div>
+    <div class="relative z-10 max-w-4xl w-full max-h-[90vh] flex items-center justify-center lightbox-protected" oncontextmenu="return false">
+      <div id="profile-lightbox-img" class="w-full max-h-[85vh] rounded-xl bg-slate-900 bg-no-repeat bg-center bg-contain border-2 border-slate-600 shadow-2xl" style="background-image: url('profile.png'); aspect-ratio: 1;"></div>
+      <button type="button" class="absolute -top-12 right-0 p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition" onclick="document.getElementById('profile-lightbox').classList.remove('open')" aria-label="Close">
+        <i data-lucide="x" class="w-8 h-8"></i>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      lucide.createIcons();
+
+      var lightbox = document.getElementById('profile-lightbox');
+      document.querySelectorAll('.profile-img-trigger').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          lightbox.classList.add('open');
+          lightbox.querySelector('[data-lucide="x"]') && lucide.createIcons();
+        });
+      });
+      lightbox.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') lightbox.classList.remove('open');
+      });
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) lightbox.classList.remove('open');
+      });
+      lightbox.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+
+      var phrases = ['Web Security | Network Exploitation | Red Teaming', 'VAPT | PTES | OWASP | MITRE ATT&CK', 'Vulnerability Assessment | Risk Scoring | Reporting'];
+      var el = document.getElementById('typing-text');
+      var idx = 0, charIdx = 0, dir = 1, phrase = phrases[0];
+
+      function type() {
+        if (dir === 1) {
+          if (charIdx <= phrase.length) {
+            el.textContent = phrase.slice(0, charIdx);
+            charIdx++;
+            setTimeout(type, 80);
+          } else {
+            dir = -1;
+            setTimeout(type, 2000);
+          }
+        } else {
+          if (charIdx > 0) {
+            charIdx--;
+            el.textContent = phrase.slice(0, charIdx);
+            setTimeout(type, 40);
+          } else {
+            idx = (idx + 1) % phrases.length;
+            phrase = phrases[idx];
+            dir = 1;
+            setTimeout(type, 400);
+          }
+        }
+      }
+      type();
+
+      document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          var id = this.getAttribute('href');
+          if (id === '#') return;
+          e.preventDefault();
+          var target = document.querySelector(id);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('mobile-menu').classList.add('hidden');
+          document.getElementById('nav-links').classList.remove('hidden');
+        });
+      });
+
+      document.getElementById('menu-toggle').addEventListener('click', function() {
+        var menu = document.getElementById('mobile-menu');
+        var links = document.getElementById('nav-links');
+        menu.classList.toggle('hidden');
+        if (!menu.classList.contains('hidden')) links.classList.add('hidden');
+        else links.classList.remove('hidden');
+      });
+      document.querySelectorAll('.nav-link').forEach(function(a) {
+        a.addEventListener('click', function() {
+          document.getElementById('mobile-menu').classList.add('hidden');
+          document.getElementById('nav-links').classList.remove('hidden');
+        });
+      });
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('active');
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+      document.querySelectorAll('.reveal').forEach(function(r) { observer.observe(r); });
+      document.querySelectorAll('.reveal').forEach(function(r) {
+        if (r.getBoundingClientRect().top < window.innerHeight) r.classList.add('active');
+      });
+
+      var nav = document.getElementById('navbar');
+      window.addEventListener('scroll', function() {
+        nav.classList.toggle('bg-slate-950/95', window.scrollY > 50);
+      });
+
+      document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var btn = this.querySelector('button[type="submit"]');
+        var t = btn.textContent;
+        btn.textContent = 'Sent (frontend only)';
+        btn.disabled = true;
+        setTimeout(function() { btn.textContent = t; btn.disabled = false; }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>
