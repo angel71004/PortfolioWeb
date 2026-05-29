@@ -1,445 +1,833 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Angel A | Penetration Tester & Ethical Hacker</title>
-  <meta name="description" content="Angel A - Junior Penetration Tester & VAPT Analyst. Web & Network Security, Vulnerability Assessment, Red Teaming. PTES-based assessments, OWASP, MITRE ATT&CK.">
-  <meta name="keywords" content="Penetration Tester, Ethical Hacker, VAPT, Web Security, Red Team, Vulnerability Assessment">
+  <title>Angel A | QA Engineer & Software Tester</title>
+  <meta name="description" content="Angel A - QA Engineer, Software Tester & SDET. Manual testing, Selenium automation, API testing, SQL validation, Agile/Scrum, Jira, OWASP security testing.">
+  <meta name="keywords" content="QA Engineer, Software Tester, SDET, Selenium, API Testing, Manual Testing, Test Automation, Pytest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            dark: '#0f172a',
-            accent: '#22d3ee',
-            accentGreen: '#22c55e',
-            accentRed: '#ef4444',
-            slate: { 850: '#172033', 950: '#0b1120' }
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Outfit', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
           },
-          animation: { 'fade-in': 'fadeIn 0.6s ease-out forwards', 'glow': 'glow 2s ease-in-out infinite alternate' },
-          keyframes: { fadeIn: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }, glow: { '0%': { boxShadow: '0 0 15px rgba(34, 211, 238, 0.4)' }, '100%': { boxShadow: '0 0 25px rgba(34, 211, 238, 0.7)' } } }
-        }
-      }
-    }
+          colors: {
+            void: '#030508',
+            navy: '#0a0f1c',
+            surface: '#111827',
+            cyan: { DEFAULT: '#22d3ee', dim: '#0891b2' },
+            purple: { DEFAULT: '#a78bfa', dim: '#7c3aed' },
+            blue: { DEFAULT: '#60a5fa', dim: '#2563eb' },
+          },
+        },
+      },
+    };
   </script>
   <style>
+    :root {
+      --bg-void: #030508;
+      --bg-navy: #0a0f1c;
+      --accent-cyan: #22d3ee;
+      --accent-purple: #a78bfa;
+      --accent-blue: #60a5fa;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+
     html { scroll-behavior: smooth; }
-    .bg-grid { background-image: linear-gradient(rgba(34, 211, 238, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.04) 1px, transparent 1px); background-size: 40px 40px; }
-    .bg-hero-glow { background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34, 211, 238, 0.15), transparent 50%), radial-gradient(ellipse 60% 40% at 90% 50%, rgba(34, 211, 238, 0.06), transparent 45%); }
-    .reveal { opacity: 0; transform: translateY(24px); }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-    .reveal-1 { transition: opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s; }
-    .reveal-2 { transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s; }
-    .reveal-3 { transition: opacity 0.5s ease-out 0.3s, transform 0.5s ease-out 0.3s; }
-    .reveal-4 { transition: opacity 0.5s ease-out 0.4s, transform 0.5s ease-out 0.4s; }
-    .btn-glow:hover { box-shadow: 0 0 24px rgba(34, 211, 238, 0.5), 0 0 48px rgba(34, 211, 238, 0.2); }
-    .cursor-blink::after { content: '|'; animation: blink 1s step-end infinite; color: #22d3ee; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-void);
+      color: var(--text-primary);
+    }
+
+    /* Ambient background */
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.45;
+      animation: drift 20s ease-in-out infinite;
+    }
+    .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle, rgba(34,211,238,0.35), transparent 70%); top: -12%; left: -8%; }
+    .orb-2 { width: 480px; height: 480px; background: radial-gradient(circle, rgba(167,139,250,0.3), transparent 70%); top: 35%; right: -12%; animation-delay: -7s; }
+    .orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(96,165,250,0.22), transparent 70%); bottom: 5%; left: 25%; animation-delay: -14s; }
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 25px) scale(0.95); }
+    }
+
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 70%);
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Typography */
+    .font-display { font-family: 'Outfit', system-ui, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .gradient-text {
+      background: linear-gradient(135deg, #fff 0%, #22d3ee 40%, #a78bfa 70%, #60a5fa 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gradient-text-sub {
+      background: linear-gradient(90deg, #22d3ee, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Glass & cards */
+    .glass {
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+    }
+    .glass-nav {
+      background: rgba(3, 5, 8, 0.72);
+      backdrop-filter: blur(24px) saturate(1.2);
+      -webkit-backdrop-filter: blur(24px) saturate(1.2);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .glass-nav.scrolled {
+      background: rgba(3, 5, 8, 0.92);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .card-premium {
+      position: relative;
+      background: linear-gradient(160deg, rgba(17,24,39,0.85) 0%, rgba(10,15,28,0.95) 100%);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+    }
+    .card-premium::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(34,211,238,0.04) 0%, transparent 40%, rgba(167,139,250,0.04) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .card-premium:hover {
+      transform: translateY(-6px);
+      border-color: rgba(34,211,238,0.25);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.45), 0 0 0 1px rgba(34,211,238,0.08), 0 0 60px rgba(34,211,238,0.06);
+    }
+    .card-premium:hover::before { opacity: 1; }
+
+    .project-card {
+      position: relative;
+      padding: 1.75rem;
+    }
+    .project-card .accent-line {
+      position: absolute;
+      top: 0;
+      left: 1.5rem;
+      right: 1.5rem;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--line-color, #22d3ee), transparent);
+      opacity: 0.8;
+    }
+    .project-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: rgba(148,163,184,0.6);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: #030508;
+      background: linear-gradient(135deg, #22d3ee 0%, #60a5fa 50%, #a78bfa 100%);
+      border-radius: 0.75rem;
+      border: none;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 4px 24px rgba(34,211,238,0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(34,211,238,0.45), 0 0 40px rgba(167,139,250,0.2);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 0.75rem;
+      transition: all 0.25s ease;
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(34,211,238,0.4);
+      box-shadow: 0 0 24px rgba(34,211,238,0.12);
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 0.625rem;
+      transition: all 0.25s ease;
+    }
+    .social-btn:hover {
+      color: #22d3ee;
+      border-color: rgba(34,211,238,0.35);
+      background: rgba(34,211,238,0.08);
+      transform: translateY(-2px);
+    }
+
+    .skill-tag {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #cbd5e1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 9999px;
+      transition: all 0.2s ease;
+    }
+    .skill-tag:hover {
+      color: #22d3ee;
+      border-color: rgba(34,211,238,0.3);
+      background: rgba(34,211,238,0.08);
+    }
+
+    .stat-chip {
+      padding: 0.4rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      border-radius: 9999px;
+      border: 1px solid;
+    }
+
+    /* Section headers */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #22d3ee;
+    }
+    .section-title {
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .section-line {
+      width: 4rem;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #22d3ee, #a78bfa);
+    }
+
+    /* Hero */
+    .hero-glow-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 1.5rem;
+      background: linear-gradient(135deg, #22d3ee, #a78bfa, #60a5fa, #22d3ee);
+      background-size: 300% 300%;
+      animation: gradient-shift 8s ease infinite;
+      opacity: 0.6;
+      z-index: -1;
+    }
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .profile-frame {
+      position: relative;
+      border-radius: 1.5rem;
+      padding: 3px;
+      background: linear-gradient(135deg, rgba(34,211,238,0.5), rgba(167,139,250,0.5));
+      box-shadow: 0 0 60px rgba(34,211,238,0.15), 0 0 100px rgba(167,139,250,0.08);
+    }
+    .profile-inner {
+      border-radius: calc(1.5rem - 3px);
+      overflow: hidden;
+      background: #0a0f1c;
+    }
+    .profile-float { animation: float 7s ease-in-out infinite; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #34d399;
+      background: rgba(52,211,153,0.1);
+      border: 1px solid rgba(52,211,153,0.25);
+      border-radius: 9999px;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 8px #34d399;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .cursor-blink::after {
+      content: '|';
+      color: #22d3ee;
+      animation: blink 1s step-end infinite;
+    }
     @keyframes blink { 50% { opacity: 0; } }
-    .profile-wrap { animation: float 6s ease-in-out infinite; }
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(34, 211, 238, 0.1); }
-    .img-glow { box-shadow: 0 0 40px rgba(34, 211, 238, 0.25), 0 0 80px rgba(34, 211, 238, 0.08); }
-    .nav-link, .nav a { transition: color 0.2s, transform 0.2s; }
-    .nav a:hover { transform: translateX(4px); }
-    .card-bg-cyan { background: linear-gradient(145deg, rgba(15,23,42,0.98) 0%, rgba(34,211,238,0.06) 50%, rgba(15,23,42,0.95) 100%); position: relative; overflow: hidden; }
-    .card-bg-cyan::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 0% 0%, rgba(34,211,238,0.08) 0%, transparent 50%); pointer-events: none; }
-    .card-bg-green { background: linear-gradient(145deg, rgba(15,23,42,0.98) 0%, rgba(34,197,94,0.06) 50%, rgba(15,23,42,0.95) 100%); position: relative; overflow: hidden; }
-    .card-bg-green::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 100% 0%, rgba(34,197,94,0.06) 0%, transparent 50%); pointer-events: none; }
-    .card-bg-slate { background: linear-gradient(160deg, rgba(30,41,59,0.7) 0%, rgba(15,23,42,0.95) 100%); position: relative; overflow: hidden; }
-    .card-bg-slate::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(34,211,238,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.02) 1px, transparent 1px); background-size: 24px 24px; pointer-events: none; }
-    .card-bg-cert { background: linear-gradient(145deg, rgba(34,197,94,0.12) 0%, rgba(15,23,42,0.95) 50%); position: relative; overflow: hidden; }
-    .card-bg-cert::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 100% 100%, rgba(34,197,94,0.1) 0%, transparent 45%); pointer-events: none; }
-    .card-bg-dark { background: linear-gradient(160deg, rgba(23,32,51,0.9) 0%, rgba(11,17,32,0.98) 100%); position: relative; overflow: hidden; }
-    .card-bg-dark::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 80% 20%, rgba(34,211,238,0.04) 0%, transparent 40%); pointer-events: none; }
-    .section-alt { background: linear-gradient(180deg, rgba(15,23,42,0.5) 0%, rgba(11,17,32,0.8) 100%); }
-    .about-card { background: linear-gradient(145deg, rgba(23,32,51,0.6) 0%, rgba(15,23,42,0.9) 100%); border: 1px solid rgba(34,211,238,0.1); }
-    #experience .timeline-card { overflow: visible; }
-    .profile-img-trigger { cursor: pointer; display: block; }
-    .profile-img-trigger:focus { outline: none; }
-    #profile-lightbox { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+
+    /* Timeline */
+    .timeline-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22d3ee, #a78bfa);
+      box-shadow: 0 0 16px rgba(34,211,238,0.5);
+    }
+
+    /* Nav */
+    .nav-link-item {
+      position: relative;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #94a3b8;
+      transition: color 0.2s ease;
+    }
+    .nav-link-item:hover, .nav-link-item.active { color: #f1f5f9; }
+    .nav-link-item::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #22d3ee, #a78bfa);
+      border-radius: 1px;
+      transition: width 0.3s ease;
+    }
+    .nav-link-item:hover::after, .nav-link-item.active::after { width: 100%; }
+
+    .icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.625rem;
+      color: #94a3b8;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.03);
+      transition: all 0.25s ease;
+    }
+    .icon-btn:hover {
+      color: #22d3ee;
+      border-color: rgba(34,211,238,0.35);
+      background: rgba(34,211,238,0.1);
+      transform: translateY(-2px);
+    }
+
+    .scroll-hint {
+      animation: bounce-y 2.5s ease-in-out infinite;
+    }
+    @keyframes bounce-y {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    #profile-lightbox {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      backdrop-filter: blur(12px);
+    }
     #profile-lightbox.open { opacity: 1; visibility: visible; }
-    .lightbox-protected { -webkit-user-select: none; user-select: none; -webkit-user-drag: none; pointer-events: auto; }
-    @media (max-width: 768px) { .profile-wrap { animation: none; } }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    }
+
+    @media (max-width: 768px) {
+      .profile-float { animation: none; }
+      .orb { opacity: 0.3; filter: blur(60px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      .orb { animation: none; }
+    }
   </style>
 </head>
-<body class="bg-dark text-slate-200 antialiased">
-  <div class="bg-grid fixed inset-0 pointer-events-none z-0"></div>
-  <div class="bg-hero-glow fixed inset-0 pointer-events-none z-0"></div>
+<body class="antialiased overflow-x-hidden">
+  <div class="ambient" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
 
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-dark/90 backdrop-blur-md border-b border-slate-700/50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-      <a href="#hero" class="text-xl font-bold text-accent tracking-tight">Angel A</a>
-      <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-slate-300 hover:bg-slate-800" aria-label="Menu">
-        <i data-lucide="menu" class="w-6 h-6"></i>
+  <nav id="navbar" class="glass-nav fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-[4.25rem]">
+      <a href="#hero" class="font-display text-lg font-bold tracking-tight">
+        <span class="gradient-text-sub">Angel</span><span class="text-white"> A</span>
+      </a>
+      <button id="menu-toggle" class="md:hidden icon-btn" aria-label="Menu">
+        <i data-lucide="menu" class="w-5 h-5"></i>
       </button>
-      <div id="nav-links" class="hidden md:flex items-center gap-6 lg:gap-8 nav">
-        <a href="#about" class="text-slate-400 hover:text-accent">About</a>
-        <a href="#skills" class="text-slate-400 hover:text-accent">Skills</a>
-        <a href="#experience" class="text-slate-400 hover:text-accent">Hands on Training</a>
-        <a href="#projects" class="text-slate-400 hover:text-accent">Projects</a>
-        <a href="#certifications" class="text-slate-400 hover:text-accent">Certifications</a>
-        <a href="#contact" class="text-slate-400 hover:text-accent">Contact</a>
+      <div id="nav-links" class="hidden md:flex items-center gap-1 lg:gap-2">
+        <a href="#about" class="nav-link-item px-3 py-2" data-section="about">About</a>
+        <a href="#skills" class="nav-link-item px-3 py-2" data-section="skills">Skills</a>
+        <a href="#experience" class="nav-link-item px-3 py-2" data-section="experience">Experience</a>
+        <a href="#projects" class="nav-link-item px-3 py-2" data-section="projects">Projects</a>
+        <a href="#certifications" class="nav-link-item px-3 py-2" data-section="certifications">Certs</a>
+        <a href="#contact" class="nav-link-item px-3 py-2" data-section="contact">Contact</a>
       </div>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-700/50 bg-slate-950/98">
-      <div class="px-4 py-3 flex flex-col gap-2">
-        <a href="#about" class="nav-link py-2 text-slate-400 hover:text-accent">About</a>
-        <a href="#skills" class="nav-link py-2 text-slate-400 hover:text-accent">Skills</a>
-        <a href="#experience" class="nav-link py-2 text-slate-400 hover:text-accent">Hands on Training</a>
-        <a href="#projects" class="nav-link py-2 text-slate-400 hover:text-accent">Projects</a>
-        <a href="#certifications" class="nav-link py-2 text-slate-400 hover:text-accent">Certifications</a>
-        <a href="#contact" class="nav-link py-2 text-slate-400 hover:text-accent">Contact</a>
+    <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/5">
+      <div class="px-4 py-4 flex flex-col gap-1 max-w-6xl mx-auto">
+        <a href="#about" class="nav-link nav-link-item py-3 px-2">About</a>
+        <a href="#skills" class="nav-link nav-link-item py-3 px-2">Skills</a>
+        <a href="#experience" class="nav-link nav-link-item py-3 px-2">Experience</a>
+        <a href="#projects" class="nav-link nav-link-item py-3 px-2">Projects</a>
+        <a href="#certifications" class="nav-link nav-link-item py-3 px-2">Certifications</a>
+        <a href="#contact" class="nav-link nav-link-item py-3 px-2">Contact</a>
       </div>
     </div>
   </nav>
 
   <main class="relative z-10">
-    <section id="hero" class="min-h-screen flex flex-col justify-center px-4 sm:px-6 pt-24 pb-16 relative">
-      <div class="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-        <div class="flex-1 order-2 lg:order-1 text-center lg:text-left">
-          <p class="text-accent font-mono text-sm mb-2 opacity-90 reveal reveal-1">$ whoami</p>
-          <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2 reveal reveal-2">Angel A</h1>
-          <p class="text-xl sm:text-2xl text-accent font-semibold mb-4 reveal reveal-2">Penetration Tester | Ethical Hacker</p>
-          <p class="text-slate-400 mb-2 reveal reveal-3">Find weaknesses before attackers do.</p>
-          <p class="text-slate-300 font-mono text-base sm:text-lg min-h-[2rem] mb-8 reveal reveal-3"><span id="typing-text" class="text-accent"></span><span class="cursor-blink"></span></p>
-          <div class="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 mb-8 reveal reveal-4">
-            <a href="#projects" class="btn-glow inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg bg-accent/15 border border-accent/50 text-accent font-semibold hover:bg-accent/25 transition text-sm sm:text-base shadow-lg shadow-accent/10">View Work</a>
-            <a href="#contact" class="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg bg-accentGreen/15 border border-accentGreen/50 text-accentGreen font-semibold hover:bg-accentGreen/25 transition text-sm sm:text-base shadow-lg shadow-accentGreen/10">Contact Me</a>
+    <!-- Hero -->
+    <section id="hero" class="relative min-h-screen flex flex-col justify-center px-4 sm:px-6 pt-28 pb-20">
+      <div class="max-w-6xl mx-auto w-full">
+        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          <div class="flex-1 order-2 lg:order-1 text-center lg:text-left">
+            <div class="reveal reveal-d1 flex justify-center lg:justify-start mb-5">
+              <span class="status-badge"><span class="status-dot"></span> Open to opportunities</span>
+            </div>
+            <p class="reveal reveal-d1 font-mono text-sm text-slate-500 mb-3">QA Engineer · Software Tester · SDET</p>
+            <h1 class="reveal reveal-d2 font-display text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-4 leading-[1.05]">
+              Hi, I'm<br><span class="gradient-text">Angel A</span>
+            </h1>
+            <p class="reveal reveal-d2 text-lg sm:text-xl text-slate-400 max-w-xl mx-auto lg:mx-0 mb-5 leading-relaxed">
+              I ship quality software—designing test strategies, automating flows, and catching defects before users do.
+            </p>
+            <p class="reveal reveal-d2 font-mono text-sm sm:text-base text-slate-400 min-h-[1.75rem] mb-6">
+              <span class="text-cyan-400">&gt;</span> <span id="typing-text" class="text-slate-300"></span><span class="cursor-blink"></span>
+            </p>
+            <div class="reveal reveal-d2 flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 mb-8">
+              <span class="stat-chip text-cyan-400 border-cyan-500/30 bg-cyan-500/10">35+ test cases</span>
+              <span class="stat-chip text-purple-400 border-purple-500/30 bg-purple-500/10">85% coverage</span>
+              <span class="stat-chip text-blue-400 border-blue-500/30 bg-blue-500/10">28 defects logged</span>
+            </div>
+            <div class="reveal reveal-d3 flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4">
+              <a href="#projects" class="btn-primary">View Projects <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+              <a href="#contact" class="btn-ghost">Get in Touch</a>
+              <a href="mailto:angelrameshan2004@gmail.com" class="btn-ghost hidden sm:inline-flex"><i data-lucide="mail" class="w-4 h-4"></i> Email</a>
+            </div>
           </div>
-          <div class="flex justify-center lg:justify-start gap-3 reveal reveal-4">
-            <a href="https://linkedin.com/in/angel-arerath" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-lg border border-slate-600 text-slate-400 hover:text-accent hover:border-accent/50 hover:scale-110 transition" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-            <a href="https://github.com/angel71004" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-lg border border-slate-600 text-slate-400 hover:text-accent hover:border-accent/50 hover:scale-110 transition" aria-label="GitHub"><i data-lucide="github" class="w-5 h-5"></i></a>
-            <a href="mailto:angelrameshan2004@gmail.com" class="p-2.5 rounded-lg border border-slate-600 text-slate-400 hover:text-accent hover:border-accent/50 hover:scale-110 transition" aria-label="Email"><i data-lucide="mail" class="w-5 h-5"></i></a>
+          <div class="flex-shrink-0 order-1 lg:order-2 reveal reveal-d2">
+            <button type="button" class="profile-img-trigger profile-float relative block border-0 p-0 bg-transparent" aria-label="View full photo">
+              <div class="profile-frame">
+                <div class="profile-inner w-52 h-52 sm:w-60 sm:h-60 md:w-72 md:h-72">
+                  <img src="profile.png" alt="Angel A - QA Engineer" class="w-full h-full object-cover object-top" width="288" height="288" loading="eager" draggable="false" oncontextmenu="return false">
+                </div>
+              </div>
+            </button>
           </div>
         </div>
-        <div class="flex-shrink-0 order-1 lg:order-2 reveal reveal-2">
-          <button type="button" class="profile-img-trigger profile-wrap relative inline-block text-left border-0 p-0 bg-transparent" aria-label="View full photo">
-            <div class="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden border-2 border-accent/30 img-glow bg-slate-800">
-              <img src="profile.png" alt="Angel A - Penetration Tester" class="w-full h-full object-cover object-top" width="256" height="256" loading="eager" draggable="false" oncontextmenu="return false">
+      </div>
+      <a href="#about" class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-hint text-slate-500 hover:text-cyan-400 transition hidden sm:flex flex-col items-center gap-1" aria-label="Scroll down">
+        <span class="font-mono text-[10px] tracking-widest uppercase">Scroll</span>
+        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+      </a>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto px-4"></div>
+
+    <!-- About -->
+    <section id="about" class="py-24 sm:py-28 px-4 sm:px-6">
+      <div class="max-w-4xl mx-auto">
+        <header class="mb-12 reveal">
+          <p class="section-label mb-2">01 — About</p>
+          <h2 class="section-title mb-4">Building quality into every release</h2>
+          <div class="section-line"></div>
+        </header>
+        <div class="card-premium glass p-6 sm:p-10 reveal reveal-d1">
+          <div class="flex flex-col sm:flex-row gap-8 sm:gap-10 relative z-10">
+            <button type="button" class="profile-img-trigger flex-shrink-0 mx-auto sm:mx-0 border-0 p-0 bg-transparent" aria-label="View full photo">
+              <img src="profile.png" alt="Angel A" class="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl object-cover object-top ring-2 ring-white/10 shadow-2xl" draggable="false" oncontextmenu="return false">
+            </button>
+            <div class="space-y-4 text-slate-300 leading-relaxed text-[0.9375rem] sm:text-base">
+              <p>Results-driven <strong class="text-white font-medium">QA Engineer</strong> with 6+ months of hands-on experience in manual testing, Selenium automation, API testing, and database validation. I design clear test cases, run regression cycles, and track defects so teams ship with confidence.</p>
+              <p>Skilled in SDLC/STLC, Agile/Scrum, Jira, and security testing aligned with OWASP Top 10—from e-commerce flows to REST API validation and Pytest automation with Page Object Model.</p>
+              <p>Based in <span class="gradient-text-sub font-medium">Kerala, India</span>. Open to QA Engineer, Software Tester, and SDET roles.</p>
             </div>
-            <div class="absolute -inset-1 rounded-2xl border border-accent/20 -z-10 opacity-50"></div>
-          </button>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="about" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30">
+    <!-- Skills -->
+    <section id="skills" class="py-24 sm:py-28 px-4 sm:px-6 relative">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/[0.02] to-transparent pointer-events-none"></div>
+      <div class="max-w-6xl mx-auto relative">
+        <header class="mb-14 reveal">
+          <p class="section-label mb-2">02 — Skills</p>
+          <h2 class="section-title mb-4">Technical expertise</h2>
+          <div class="section-line"></div>
+        </header>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <div class="card-premium p-5 sm:p-6 reveal reveal-d1">
+            <h3 class="font-display font-semibold text-white mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-cyan-500/15 flex items-center justify-center"><i data-lucide="clipboard-check" class="w-4 h-4 text-cyan-400"></i></span> Testing</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-tag">Manual Testing</span><span class="skill-tag">Regression</span><span class="skill-tag">Smoke & Sanity</span><span class="skill-tag">Negative Testing</span><span class="skill-tag">Cross-Browser</span><span class="skill-tag">UAT</span>
+            </div>
+          </div>
+          <div class="card-premium p-5 sm:p-6 reveal reveal-d2">
+            <h3 class="font-display font-semibold text-white mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-purple-500/15 flex items-center justify-center"><i data-lucide="bot" class="w-4 h-4 text-purple-400"></i></span> Automation</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-tag">Selenium 4</span><span class="skill-tag">Python 3.x</span><span class="skill-tag">Pytest</span><span class="skill-tag">POM</span><span class="skill-tag">XPath / CSS</span><span class="skill-tag">Explicit Waits</span>
+            </div>
+          </div>
+          <div class="card-premium p-5 sm:p-6 reveal reveal-d3">
+            <h3 class="font-display font-semibold text-white mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-blue-500/15 flex items-center justify-center"><i data-lucide="plug" class="w-4 h-4 text-blue-400"></i></span> API & DB</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-tag">REST API</span><span class="skill-tag">Postman</span><span class="skill-tag">JSON</span><span class="skill-tag">MySQL</span><span class="skill-tag">SQL Queries</span><span class="skill-tag">API-to-DB</span>
+            </div>
+          </div>
+          <div class="card-premium p-5 sm:p-6 reveal reveal-d2">
+            <h3 class="font-display font-semibold text-white mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-amber-500/15 flex items-center justify-center"><i data-lucide="shield-check" class="w-4 h-4 text-amber-400"></i></span> Security</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-tag">OWASP Top 10</span><span class="skill-tag">Burp Suite</span><span class="skill-tag">SQLi</span><span class="skill-tag">XSS & CSRF</span><span class="skill-tag">DVWA</span>
+            </div>
+          </div>
+          <div class="card-premium p-5 sm:p-6 reveal reveal-d3">
+            <h3 class="font-display font-semibold text-white mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-cyan-500/15 flex items-center justify-center"><i data-lucide="wrench" class="w-4 h-4 text-cyan-400"></i></span> Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-tag">Jira</span><span class="skill-tag">Postman</span><span class="skill-tag">DevTools</span><span class="skill-tag">Git</span><span class="skill-tag">VS Code</span><span class="skill-tag">Confluence</span>
+            </div>
+          </div>
+          <div class="card-premium p-5 sm:p-6 reveal reveal-d4 sm:col-span-2 lg:col-span-1">
+            <h3 class="font-display font-semibold text-white mb-4 flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-purple-500/15 flex items-center justify-center"><i data-lucide="git-branch" class="w-4 h-4 text-purple-400"></i></span> Methodologies</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-tag">SDLC / STLC</span><span class="skill-tag">Agile / Scrum</span><span class="skill-tag">Sprint Planning</span><span class="skill-tag">Defect Lifecycle</span><span class="skill-tag">Python · SQL · Linux</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto px-4"></div>
+
+    <!-- Experience -->
+    <section id="experience" class="py-24 sm:py-28 px-4 sm:px-6">
       <div class="max-w-4xl mx-auto">
-        <div class="about-card rounded-2xl p-6 sm:p-8 card-hover">
-          <div class="flex flex-col sm:flex-row sm:items-start gap-8 relative z-10">
-            <div class="sm:w-32 flex-shrink-0 mx-auto sm:mx-0">
-              <button type="button" class="profile-img-trigger block w-full border-0 p-0 bg-transparent reveal" aria-label="View full photo">
-                <img src="profile.png" alt="Angel A" class="w-28 h-28 sm:w-32 sm:h-32 rounded-xl object-cover object-top border-2 border-accent/30 shadow-lg" draggable="false" oncontextmenu="return false">
-              </button>
+        <header class="mb-14 reveal">
+          <p class="section-label mb-2">03 — Experience</p>
+          <h2 class="section-title mb-4">Where I've worked</h2>
+          <div class="section-line"></div>
+        </header>
+        <div class="relative pl-8 sm:pl-10 border-l border-gradient-to-b from-cyan-500/50 via-purple-500/30 to-transparent reveal reveal-d1" style="border-image: linear-gradient(to bottom, rgba(34,211,238,0.5), rgba(167,139,250,0.2), transparent) 1;">
+          <div class="absolute -left-[7px] top-0 timeline-dot"></div>
+          <div class="card-premium p-6 sm:p-8 -ml-px">
+            <div class="relative z-10">
+              <p class="font-mono text-xs text-cyan-400 mb-2">Aug 2024 — Feb 2025</p>
+              <h3 class="font-display text-xl font-bold text-white mb-1">QA & Python Intern</h3>
+              <p class="text-purple-400 font-medium text-sm mb-3">Regional Technologies</p>
+              <p class="text-slate-500 text-sm mb-4">AI-Based Bharatanatyam Mudra Prediction System · Django, TensorFlow, OpenCV</p>
+              <ul class="text-slate-400 text-sm space-y-2.5 leading-relaxed">
+                <li class="flex gap-2"><span class="text-cyan-400 mt-1">▹</span> Designed and executed 35+ test cases—85% coverage across web, backend, and edge cases.</li>
+                <li class="flex gap-2"><span class="text-cyan-400 mt-1">▹</span> Logged 28 defects with severity/priority; regression across 12 core modules post-fix.</li>
+                <li class="flex gap-2"><span class="text-cyan-400 mt-1">▹</span> Built Pytest automation; participated in Agile stand-ups, sprint planning, and defect reviews.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="mt-14 reveal reveal-d2">
+          <h3 class="font-display text-lg font-semibold text-white mb-5">Education</h3>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="card-premium p-5">
+              <p class="font-semibold text-white">MCA — Pursuing</p>
+              <p class="text-sm text-slate-400 mt-1">LEAD College, Palakkad · Calicut · 2025–2027</p>
+            </div>
+            <div class="card-premium p-5">
+              <p class="font-semibold text-white">BCA</p>
+              <p class="text-sm text-slate-400 mt-1">University of Kannur · 2022–2025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-24 sm:py-28 px-4 sm:px-6 relative">
+      <div class="absolute inset-0 bg-gradient-to-b from-purple-500/[0.02] via-transparent to-cyan-500/[0.02] pointer-events-none"></div>
+      <div class="max-w-6xl mx-auto relative">
+        <header class="mb-14 reveal">
+          <p class="section-label mb-2">04 — Projects</p>
+          <h2 class="section-title mb-4">Selected QA work</h2>
+          <div class="section-line"></div>
+        </header>
+        <div class="grid md:grid-cols-2 gap-6 sm:gap-8">
+          <article class="card-premium project-card reveal reveal-d1" style="--line-color: #22d3ee;">
+            <div class="accent-line"></div>
+            <span class="project-num">01</span>
+            <div class="flex items-start justify-between gap-4 mt-3 mb-3">
+              <h3 class="font-display text-lg font-bold text-white">E-Commerce Website Testing</h3>
+              <span class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center shrink-0"><i data-lucide="shopping-cart" class="w-5 h-5 text-cyan-400"></i></span>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="skill-tag text-cyan-300/90">Jira</span><span class="skill-tag">DevTools</span><span class="skill-tag">Sheets</span>
+            </div>
+            <p class="text-slate-400 text-sm leading-relaxed">E2E test cases for login, cart, checkout, and payment. Functional, regression, smoke, cross-browser testing. Defects in Jira with severity and reproduction steps.</p>
+          </article>
+          <article class="card-premium project-card reveal reveal-d2" style="--line-color: #a78bfa;">
+            <div class="accent-line"></div>
+            <span class="project-num">02</span>
+            <div class="flex items-start justify-between gap-4 mt-3 mb-3">
+              <h3 class="font-display text-lg font-bold text-white">REST API & Database Validation</h3>
+              <span class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center shrink-0"><i data-lucide="database" class="w-5 h-5 text-purple-400"></i></span>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="skill-tag">Postman</span><span class="skill-tag">REST</span><span class="skill-tag">MySQL</span><span class="skill-tag">JSON</span>
+            </div>
+            <p class="text-slate-400 text-sm leading-relaxed">Status codes, JSON schema, payload integrity. Positive, negative, and boundary scenarios. API-to-database validation with Postman collections for regression.</p>
+          </article>
+          <article class="card-premium project-card reveal reveal-d3" style="--line-color: #60a5fa;">
+            <div class="accent-line"></div>
+            <span class="project-num">03</span>
+            <div class="flex items-start justify-between gap-4 mt-3 mb-3">
+              <h3 class="font-display text-lg font-bold text-white">Selenium Automation Framework</h3>
+              <span class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0"><i data-lucide="code-2" class="w-5 h-5 text-blue-400"></i></span>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="skill-tag">Selenium 4</span><span class="skill-tag">Pytest</span><span class="skill-tag">POM</span><span class="skill-tag">Python</span>
+            </div>
+            <p class="text-slate-400 text-sm leading-relaxed">E2E automation with Page Object Model, explicit waits, and assertion-based checks. Modular Pytest suites built to reduce flaky failures.</p>
+          </article>
+          <article class="card-premium project-card reveal reveal-d4" style="--line-color: #fbbf24;">
+            <div class="accent-line"></div>
+            <span class="project-num">04</span>
+            <div class="flex items-start justify-between gap-4 mt-3 mb-3">
+              <h3 class="font-display text-lg font-bold text-white">Web Security Testing</h3>
+              <span class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0"><i data-lucide="shield" class="w-5 h-5 text-amber-400"></i></span>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="skill-tag">OWASP</span><span class="skill-tag">Burp Suite</span><span class="skill-tag">DVWA</span>
+            </div>
+            <p class="text-slate-400 text-sm leading-relaxed">OWASP Top 10 assessments: SQLi, XSS, CSRF, broken auth. HTTP interception with Burp Suite; structured findings with risk ratings.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto px-4"></div>
+
+    <!-- Certifications -->
+    <section id="certifications" class="py-24 sm:py-28 px-4 sm:px-6">
+      <div class="max-w-4xl mx-auto">
+        <header class="mb-14 reveal">
+          <p class="section-label mb-2">05 — Credentials</p>
+          <h2 class="section-title mb-4">Certifications</h2>
+          <div class="section-line"></div>
+        </header>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <a href="https://www.coursera.org/account/accomplishments/professional-cert/certificate/8EX1MGC1GDWY" target="_blank" rel="noopener noreferrer" class="card-premium flex items-center gap-4 p-5 group reveal reveal-d1">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <i data-lucide="award" class="w-6 h-6 text-cyan-400"></i>
             </div>
             <div class="flex-1 min-w-0">
-              <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">Why I Do This</h2>
-              <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-6 reveal"></div>
-              <div class="reveal text-slate-300 leading-relaxed space-y-4">
-              <p>I think like an attacker so defenders can sleep better. My job isn’t to tick boxes—it’s to find the one flaw that could become a breach, then explain it clearly so teams can fix it.</p>
-              <p>I’ve spent hundreds of hours in labs and real assessments: breaking web apps, chaining network misconfigs, and writing reports that translate technical risk into business impact. I’m at my best when the scope is messy and the stakes are high.</p>
-              <p>If you’re building a red team, scaling VAPT, or need someone who can own an assessment from scope to sign-off, <span class="text-accent font-medium">I’m the person you’re looking for.</span></p>
+              <p class="font-semibold text-white text-sm group-hover:text-cyan-300 transition">Google Cybersecurity</p>
+              <p class="text-xs text-slate-500 mt-0.5">Google · Coursera</p>
             </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30 section-alt">
-      <div class="max-w-5xl mx-auto">
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">What I Use</h2>
-        <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-8 sm:mb-10 reveal"></div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          <div class="reveal reveal-1 p-4 sm:p-5 rounded-xl border border-slate-600/60 hover:border-accent/40 card-hover card-bg-cyan relative z-10">
-            <h3 class="text-accent font-semibold mb-3 flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4"></i> Web Exploitation</h3>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">SQLi</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">XSS</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">IDOR</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">Auth Testing</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">Session Mgmt</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accent/10 text-accent border border-accent/30">Business Logic</span>
-            </div>
-          </div>
-          <div class="reveal reveal-2 p-4 sm:p-5 rounded-xl border border-slate-600/60 hover:border-accentGreen/40 card-hover card-bg-green relative z-10">
-            <h3 class="text-accent font-semibold mb-3 flex items-center gap-2"><i data-lucide="network" class="w-4 h-4"></i> Network Security</h3>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 rounded-full text-xs bg-accentGreen/10 text-accentGreen border border-accentGreen/30">Port Scanning</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accentGreen/10 text-accentGreen border border-accentGreen/30">Service Enum</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accentGreen/10 text-accentGreen border border-accentGreen/30">Misconfig Analysis</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accentGreen/10 text-accentGreen border border-accentGreen/30">FIM</span>
-            </div>
-          </div>
-          <div class="reveal reveal-3 p-4 sm:p-5 rounded-xl border border-slate-600/60 hover:border-accent/40 card-hover card-bg-slate relative z-10">
-            <h3 class="text-accent font-semibold mb-3 flex items-center gap-2"><i data-lucide="wrench" class="w-4 h-4"></i> Tools</h3>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Burp Suite</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Nmap</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Metasploit</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Nessus</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">OWASP ZAP</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">SQLMap</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Wireshark</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">Kali Linux</span>
-            </div>
-          </div>
-          <div class="reveal reveal-2 p-4 sm:p-5 rounded-xl border border-slate-600/60 hover:border-accentRed/40 card-hover card-bg-dark relative z-10">
-            <h3 class="text-accent font-semibold mb-3 flex items-center gap-2"><i data-lucide="code" class="w-4 h-4"></i> Programming</h3>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 rounded-full text-xs bg-accentRed/10 text-accentRed border border-accentRed/30">Python</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accentRed/10 text-accentRed border border-accentRed/30">Bash</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accentRed/10 text-accentRed border border-accentRed/30">SQL</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accentRed/10 text-accentRed border border-accentRed/30">Git</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-accentRed/10 text-accentRed border border-accentRed/30">Linux</span>
-            </div>
-          </div>
-          <div class="reveal reveal-4 p-4 sm:p-5 rounded-xl border border-slate-600/60 hover:border-accent/40 card-hover card-bg-slate relative z-10 sm:col-span-2 lg:col-span-1">
-            <h3 class="text-accent font-semibold mb-3 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i> Methodologies</h3>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">PTES</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">OWASP</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">MITRE ATT&CK</span>
-              <span class="px-3 py-1 rounded-full text-xs bg-slate-600/50 text-slate-300 border border-slate-500">CVSS v3</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">Hands on Training</h2>
-        <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-8 sm:mb-10 reveal"></div>
-        <div class="space-y-8 sm:space-y-10">
-          <div class="reveal reveal-1 timeline-card relative pl-6 sm:pl-8 ml-2 sm:ml-3 border-l-2 border-accent/50 card-hover rounded-r-xl py-4 pr-4 card-bg-cyan">
-            <div class="absolute -left-2 top-0 w-3 h-3 rounded-full bg-accent ring-4 ring-dark shrink-0"></div>
-            <h3 class="text-base sm:text-lg font-semibold text-white relative z-10">Formal PT Training</h3>
-            <p class="text-accent text-sm relative z-10">LinkedIn Learning · 26+ hours</p>
-            <p class="mt-2 text-slate-400 text-sm relative z-10">Built end-to-end attack chains with Metasploit and Nmap, and delivered client-ready reports with CVSS and PTES structure—the kind that get handed to management.</p>
-          </div>
-          <div class="reveal reveal-2 timeline-card relative pl-6 sm:pl-8 ml-2 sm:ml-3 border-l-2 border-accent/50 card-hover rounded-r-xl py-4 pr-4 card-bg-green">
-            <div class="absolute -left-2 top-0 w-3 h-3 rounded-full bg-accent ring-4 ring-dark shrink-0"></div>
-            <h3 class="text-base sm:text-lg font-semibold text-white relative z-10">50+ Attack Labs</h3>
-            <p class="text-accent text-sm relative z-10">TryHackMe & HackTheBox</p>
-            <p class="mt-2 text-slate-400 text-sm relative z-10">Web exploitation, privilege escalation, and network pivoting in timed environments. Finished the Junior Penetration Tester path—proof I can perform under scope and time pressure.</p>
-          </div>
-        </div>
-        <div class="mt-10 sm:mt-12 reveal reveal-3">
-          <h3 class="text-lg sm:text-xl font-semibold text-white mb-4">Education</h3>
-          <div class="space-y-3 sm:space-y-4">
-            <div class="p-4 rounded-xl border border-slate-600/60 card-hover card-bg-slate relative z-10">
-              <p class="font-semibold text-white">MCA (Pursuing)</p>
-              <p class="text-accent text-sm">LEAD College, Palakkad · 2025–2027</p>
-            </div>
-            <div class="p-4 rounded-xl border border-slate-600/60 card-hover card-bg-slate relative z-10">
-              <p class="font-semibold text-white">BCA</p>
-              <p class="text-accent text-sm">Kannur University · 2022–2025</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30 section-alt">
-      <div class="max-w-5xl mx-auto">
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">Built & Shipped</h2>
-        <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-8 sm:mb-10 reveal"></div>
-        <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
-          <div class="reveal reveal-1 p-4 sm:p-6 rounded-xl border border-slate-700/50 bg-slate-850/50 hover:border-accent/30 card-hover">
-            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">CyberShell-Studio</h3>
-            <p class="text-slate-400 text-sm mb-3">One toolkit to run recon and enumeration the way PTES expects—so assessors spend less time on repetitive steps and more on finding issues. Cuts manual recon time significantly.</p>
-            <a href="https://github.com/angel71004/CyberShell-Studio" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-accent text-sm hover:underline"><i data-lucide="external-link" class="w-4 h-4"></i> View on GitHub</a>
-          </div>
-          <div class="reveal reveal-2 p-4 sm:p-6 rounded-xl border border-slate-700/50 bg-slate-850/50 hover:border-accent/30 card-hover">
-            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">Linux Security Audit Tool</h3>
-            <p class="text-slate-400 text-sm mb-3">Automates the boring part of host hardening: 25+ CIS-style checks, privilege-escalation hints, and reports that tell admins exactly what to fix and why.</p>
-            <a href="https://github.com/angel71004/Linux-Security-Audit-Tool" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-accent text-sm hover:underline"><i data-lucide="external-link" class="w-4 h-4"></i> View on GitHub</a>
-          </div>
-          <div class="reveal reveal-3 p-4 sm:p-6 rounded-xl border border-slate-600/60 hover:border-accent/40 card-hover card-bg-slate relative z-10">
-            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">File Integrity Monitor (HIDS)</h3>
-            <p class="text-slate-400 text-sm mb-3">When something changes on disk, you know. SHA256-backed monitoring across hundreds of files—built for teams that care about detection and IR.</p>
-            <a href="https://github.com/angel71004/Linux-File-Integrity-Monitor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-accent text-sm hover:underline"><i data-lucide="external-link" class="w-4 h-4"></i> View on GitHub</a>
-          </div>
-          <div class="reveal reveal-4 p-4 sm:p-6 rounded-xl border border-slate-600/60 hover:border-accent/40 card-hover card-bg-dark relative z-10">
-            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">SSH Log Analyzer</h3>
-            <p class="text-slate-400 text-sm mb-3">Turn raw auth logs into actionable alerts. Tracks brute-force patterns and noisy IPs so SOC can respond instead of digging through log dumps.</p>
-            <a href="https://github.com/angel71004/Linux-SSH-Log-Analyzer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-accent text-sm hover:underline"><i data-lucide="external-link" class="w-4 h-4"></i> View on GitHub</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="certifications" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">Credentials</h2>
-        <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-8 sm:mb-10 reveal"></div>
-        <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
-          <a href="https://www.coursera.org/account/accomplishments/verify/6J6ZECJ64NZE" target="_blank" rel="noopener noreferrer" class="reveal reveal-1 p-3 sm:p-4 rounded-xl border border-accentGreen/40 flex items-center gap-3 card-hover hover:border-accent/50 transition group card-bg-cert relative z-10">
-            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accentGreen shrink-0 relative z-10"></i>
-            <div class="flex-1 min-w-0 relative z-10">
-              <p class="font-semibold text-white text-sm sm:text-base group-hover:text-accent transition">Foundations of Cybersecurity</p>
-              <p class="text-xs text-slate-400">Google · Issued Feb 2026</p>
-            </div>
-            <i data-lucide="external-link" class="w-4 h-4 text-slate-500 shrink-0 group-hover:text-accent transition relative z-10"></i>
+            <i data-lucide="external-link" class="w-4 h-4 text-slate-600 group-hover:text-cyan-400 shrink-0 transition"></i>
           </a>
-          <a href="https://www.coursera.org/account/accomplishments/verify/KPZ3FM62W3TP" target="_blank" rel="noopener noreferrer" class="reveal reveal-2 p-3 sm:p-4 rounded-xl border border-accentGreen/40 flex items-center gap-3 card-hover hover:border-accent/50 transition group card-bg-cert relative z-10">
-            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accentGreen shrink-0 relative z-10"></i>
-            <div class="flex-1 min-w-0 relative z-10">
-              <p class="font-semibold text-white text-sm sm:text-base group-hover:text-accent transition">Build a free website with WordPress</p>
-              <p class="text-xs text-slate-400">Coursera · Issued Nov 2025</p>
+          <a href="https://www.coursera.org/account/accomplishments/professional-cert/IQ9N58D295JF" target="_blank" rel="noopener noreferrer" class="card-premium flex items-center gap-4 p-5 group reveal reveal-d2">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <i data-lucide="award" class="w-6 h-6 text-purple-400"></i>
             </div>
-            <i data-lucide="external-link" class="w-4 h-4 text-slate-500 shrink-0 group-hover:text-accent transition relative z-10"></i>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-white text-sm group-hover:text-purple-300 transition">Microsoft Cybersecurity Analyst</p>
+              <p class="text-xs text-slate-500 mt-0.5">Microsoft · Coursera</p>
+            </div>
+            <i data-lucide="external-link" class="w-4 h-4 text-slate-600 group-hover:text-purple-400 shrink-0 transition"></i>
           </a>
-          <a href="https://www.theforage.com/completion-certificates/ifobHAoMjQs9s6bKS/gmf3ypEXBj2wvfQWC_ifobHAoMjQs9s6bKS_69291c511c638149c9dc2136_1764305351759_completion_certificate.pdf" target="_blank" rel="noopener noreferrer" class="reveal reveal-3 p-3 sm:p-4 rounded-xl border border-accentGreen/40 flex items-center gap-3 card-hover hover:border-accent/50 transition group card-bg-cert relative z-10 sm:col-span-2">
-            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accentGreen shrink-0 relative z-10"></i>
-            <div class="flex-1 min-w-0 relative z-10">
-              <p class="font-semibold text-white text-sm sm:text-base group-hover:text-accent transition">Tata – Cybersecurity Analyst Job Simulation</p>
-              <p class="text-xs text-slate-400">Forage · Issued Nov 2025</p>
+          <a href="https://www.linkedin.com/posts/angel-arerath_cybersecurity-penetrationtesting-ethicalhacking-share-7425037329683275776-InLY/" target="_blank" rel="noopener noreferrer" class="card-premium flex items-center gap-4 p-5 group reveal reveal-d3 sm:col-span-2 lg:col-span-1">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <i data-lucide="award" class="w-6 h-6 text-blue-400"></i>
             </div>
-            <i data-lucide="external-link" class="w-4 h-4 text-slate-500 shrink-0 group-hover:text-accent transition relative z-10"></i>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-white text-sm group-hover:text-blue-300 transition">Fortinet FCF</p>
+              <p class="text-xs text-slate-500 mt-0.5">Fortinet · Valid till 2028 · View on LinkedIn</p>
+            </div>
+            <i data-lucide="external-link" class="w-4 h-4 text-slate-600 group-hover:text-blue-400 shrink-0 transition"></i>
           </a>
-
-          <div class="reveal reveal-4 p-3 sm:p-4 rounded-xl border border-slate-600/60 flex items-center gap-3 card-hover card-bg-slate relative z-10">
-            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0"></i>
-            <div>
-              <p class="font-semibold text-white text-sm sm:text-base">Microsoft Cybersecurity Analyst Professional Certificate</p>
-              <p class="text-xs text-slate-400">Microsoft</p>
-            </div>
-          </div>
-          <div class="reveal reveal-4 p-3 sm:p-4 rounded-xl border border-slate-600/60 flex items-center gap-3 card-hover card-bg-dark relative z-10">
-            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0"></i>
-            <div>
-              <p class="font-semibold text-white text-sm sm:text-base">Google Cybersecurity Professional Certificate</p>
-              <p class="text-xs text-slate-400">Google</p>
-            </div>
-          </div>
-          <div class="reveal reveal-4 p-3 sm:p-4 rounded-xl border border-slate-600/60 flex items-center gap-3 card-hover card-bg-slate relative z-10">
-            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0"></i>
-            <div>
-              <p class="font-semibold text-white text-sm sm:text-base">IBM Cybersecurity Analyst Professional Certificate</p>
-              <p class="text-xs text-slate-400">IBM</p>
-            </div>
-          </div>
-          <div class="reveal reveal-4 p-3 sm:p-4 rounded-xl border border-slate-600/60 flex items-center gap-3 card-hover card-bg-dark relative z-10">
-            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0"></i>
-            <div>
-              <p class="font-semibold text-white text-sm sm:text-base">CompTIA CySA+ (CS0-003) Certification Preparation</p>
-              <p class="text-xs text-slate-400">LinkedIn Learning</p>
-            </div>
-          </div>
-
-          <div class="reveal reveal-4 p-3 sm:p-4 rounded-xl border border-slate-600/60 flex items-center gap-3 card-hover card-bg-slate relative z-10">
-            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0"></i>
-            <div>
-              <p class="font-semibold text-white text-sm sm:text-base">Fortinet Certified Fundamentals in Cybersecurity (FCF)</p>
-              <p class="text-xs text-slate-400">Fortinet · Valid till 2028</p>
-            </div>
-          </div>
-          <div class="reveal reveal-4 p-3 sm:p-4 rounded-xl border border-slate-600/60 flex items-center gap-3 card-hover card-bg-dark relative z-10">
-            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0"></i>
-            <div>
-              <p class="font-semibold text-white text-sm sm:text-base">Cisco – Introduction to Cybersecurity</p>
-              <p class="text-xs text-slate-400">Cisco Networking Academy</p>
-            </div>
-          </div>
-          <div class="reveal reveal-4 p-3 sm:p-4 rounded-xl border border-slate-600/60 flex items-center gap-3 card-hover card-bg-slate relative z-10 sm:col-span-2">
-            <i data-lucide="award" class="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0"></i>
-            <div>
-              <p class="font-semibold text-white text-sm sm:text-base">Ethical Hacking & Vulnerability Analysis</p>
-              <p class="text-xs text-slate-400">LinkedIn Learning</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="py-16 sm:py-20 px-4 sm:px-6 border-t border-slate-700/30 section-alt">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 reveal">Work With Me</h2>
-        <div class="w-12 sm:w-16 h-1 bg-accent rounded mb-8 sm:mb-10 reveal"></div>
-        <div class="reveal reveal-1 about-card rounded-2xl p-6 sm:p-8 space-y-6">
-          <p class="text-slate-300 text-sm sm:text-base max-w-2xl">
-            I’m currently taking on <span class="text-accent font-medium">hands-on security work</span> and collaboration opportunities. 
-            Pick the option that matches what you need and reach out directly.
+    <!-- Contact -->
+    <section id="contact" class="py-24 sm:py-28 px-4 sm:px-6 relative">
+      <div class="absolute inset-0 bg-gradient-to-t from-cyan-500/[0.03] to-transparent pointer-events-none"></div>
+      <div class="max-w-4xl mx-auto relative">
+        <header class="mb-14 reveal">
+          <p class="section-label mb-2">06 — Contact</p>
+          <h2 class="section-title mb-4">Let's work together</h2>
+          <div class="section-line"></div>
+        </header>
+        <div class="card-premium glass p-6 sm:p-10 reveal reveal-d1">
+          <p class="text-slate-300 mb-8 max-w-2xl leading-relaxed">
+            Open to <span class="gradient-text-sub font-semibold">QA Engineer, Software Tester, and SDET</span> roles—manual testing, automation, API validation, or hybrid QA positions.
           </p>
-          <div class="grid sm:grid-cols-3 gap-4 sm:gap-6">
-            <div class="p-4 rounded-xl border border-slate-600/60 card-hover card-bg-cyan relative z-10 flex flex-col gap-2">
-              <h3 class="text-white font-semibold text-sm sm:text-base flex items-center gap-2">
-                <i data-lucide="shield" class="w-4 h-4 text-accent"></i>
-                Web & API VAPT
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-400">
-                Pen-test for web apps, APIs, and dashboards aligned to OWASP & PTES.
-              </p>
-              <a href="mailto:angelrameshan2004@gmail.com?subject=Web%20%2F%20API%20VAPT%20enquiry&body=Hi%20Angel%2C%0D%0A%0D%0AWe%20would%20like%20to%20discuss%20a%20web%20or%20API%20security%20assessment.%0D%0A%0D%0ARegards%2C%0D%0A" class="mt-1 inline-flex items-center gap-1 text-accent text-xs sm:text-sm hover:underline">
-                <i data-lucide="mail" class="w-3 h-3"></i> Email about a web test
-              </a>
+          <div class="grid sm:grid-cols-3 gap-4 sm:gap-5 mb-8">
+            <div class="p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-cyan-500/30 transition group">
+              <i data-lucide="clipboard-list" class="w-5 h-5 text-cyan-400 mb-3"></i>
+              <h3 class="font-display font-semibold text-white text-sm mb-2">Manual QA</h3>
+              <p class="text-xs text-slate-500 mb-3">Test planning, regression, defect tracking.</p>
+              <a href="mailto:angelrameshan2004@gmail.com?subject=Manual%20QA%20opportunity" class="text-xs font-medium text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1">Email <i data-lucide="arrow-up-right" class="w-3 h-3"></i></a>
             </div>
-            <div class="p-4 rounded-xl border border-slate-600/60 card-hover card-bg-green relative z-10 flex flex-col gap-2">
-              <h3 class="text-white font-semibold text-sm sm:text-base flex items-center gap-2">
-                <i data-lucide="server" class="w-4 h-4 text-accentGreen"></i>
-                Network & Hosts
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-400">
-                Recon, enumeration, and misconfiguration reviews for Linux and cloud-like labs.
-              </p>
-              <a href="mailto:angelrameshan2004@gmail.com?subject=Network%20security%20assessment&body=Hi%20Angel%2C%0D%0A%0D%0AWe%20would%20like%20to%20discuss%20a%20network%20%2F%20infrastructure%20assessment.%0D%0A%0D%0ARegards%2C%0D%0A" class="mt-1 inline-flex items-center gap-1 text-accentGreen text-xs sm:text-sm hover:underline">
-                <i data-lucide="mail" class="w-3 h-3"></i> Email about a network test
-              </a>
+            <div class="p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-purple-500/30 transition group">
+              <i data-lucide="bot" class="w-5 h-5 text-purple-400 mb-3"></i>
+              <h3 class="font-display font-semibold text-white text-sm mb-2">Automation</h3>
+              <p class="text-xs text-slate-500 mb-3">Selenium, Pytest, Postman, SQL validation.</p>
+              <a href="mailto:angelrameshan2004@gmail.com?subject=Test%20Automation%20QA" class="text-xs font-medium text-purple-400 hover:text-purple-300 inline-flex items-center gap-1">Email <i data-lucide="arrow-up-right" class="w-3 h-3"></i></a>
             </div>
-            <div class="p-4 rounded-xl border border-slate-600/60 card-hover card-bg-slate relative z-10 flex flex-col gap-2">
-              <h3 class="text-white font-semibold text-sm sm:text-base flex items-center gap-2">
-                <i data-lucide="users" class="w-4 h-4 text-accent"></i>
-                Careers & Collabs
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-400">
-                Roles, internships, lab building, or content collaborations in cybersecurity.
-              </p>
-              <a href="https://linkedin.com/in/angel-arerath" target="_blank" rel="noopener noreferrer" class="mt-1 inline-flex items-center gap-1 text-accent text-xs sm:text-sm hover:underline">
-                <i data-lucide="linkedin" class="w-3 h-3"></i> Connect on LinkedIn
-              </a>
+            <div class="p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 transition group">
+              <i data-lucide="briefcase" class="w-5 h-5 text-blue-400 mb-3"></i>
+              <h3 class="font-display font-semibold text-white text-sm mb-2">Careers</h3>
+              <p class="text-xs text-slate-500 mb-3">Full-time, contract, or internships.</p>
+              <a href="mailto:angelrameshan2004@gmail.com?subject=Career%20opportunity" class="text-xs font-medium text-blue-400 hover:text-blue-300">Email for roles</a>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-700/60 flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm text-slate-400">
-            <div class="flex items-center gap-2">
-              <i data-lucide="mail" class="w-4 h-4"></i>
-              <a href="mailto:angelrameshan2004@gmail.com" class="hover:text-accent break-all">angelrameshan2004@gmail.com</a>
+          <div class="pt-6 border-t border-white/5">
+            <p class="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Contact &amp; profiles</p>
+            <div class="flex flex-col sm:flex-row sm:flex-wrap gap-x-8 gap-y-3 text-sm">
+              <a href="mailto:angelrameshan2004@gmail.com" class="text-slate-400 hover:text-cyan-400 transition">angelrameshan2004@gmail.com</a>
+              <a href="tel:+918921650325" class="text-slate-400 hover:text-cyan-400 transition">+91-89216-50325</a>
+              <span class="text-slate-500">Kerala, India</span>
             </div>
-            <div class="flex items-center gap-2">
-              <i data-lucide="github" class="w-4 h-4"></i>
-              <a href="https://github.com/angel71004" target="_blank" rel="noopener noreferrer" class="hover:text-accent">github.com/angel71004</a>
-            </div>
-            <div class="flex items-center gap-2">
-              <i data-lucide="clock" class="w-4 h-4"></i>
-              <span>Typically replies within 24–48 hours.</span>
+            <div class="flex flex-col sm:flex-row sm:flex-wrap gap-x-8 gap-y-2 mt-4 text-sm font-medium">
+              <a href="https://linkedin.com/in/angel-arerath" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 transition underline-offset-4 hover:underline">LinkedIn — linkedin.com/in/angel-arerath</a>
+              <a href="https://github.com/angel71004" target="_blank" rel="noopener noreferrer" class="text-purple-400 hover:text-purple-300 transition underline-offset-4 hover:underline">GitHub — github.com/angel71004</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <footer class="py-6 sm:py-8 px-4 border-t border-slate-700/30">
-      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-        <p class="text-slate-500 text-xs sm:text-sm text-center sm:text-left">© Angel A. All rights reserved.</p>
-        <div class="flex gap-4">
-          <a href="https://linkedin.com/in/angel-arerath" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-accent transition p-1 rounded hover:scale-110" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-          <a href="https://github.com/angel71004" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-accent transition p-1 rounded hover:scale-110" aria-label="GitHub"><i data-lucide="github" class="w-5 h-5"></i></a>
+    <footer class="py-8 px-4 border-t border-white/5">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="font-mono text-xs text-slate-600">© 2026 Angel A · QA Engineer Portfolio</p>
+        <div class="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 gap-y-1 text-xs text-slate-500">
+          <a href="https://linkedin.com/in/angel-arerath" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition">LinkedIn</a>
+          <span class="text-slate-700" aria-hidden="true">·</span>
+          <a href="https://github.com/angel71004" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition">GitHub</a>
+          <span class="text-slate-700" aria-hidden="true">·</span>
+          <a href="mailto:angelrameshan2004@gmail.com" class="hover:text-cyan-400 transition">Email</a>
         </div>
       </div>
     </footer>
   </main>
 
-  <div id="profile-lightbox" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90" role="dialog" aria-modal="true" aria-label="Profile photo view" tabindex="-1">
-    <div class="absolute inset-0 lightbox-protected" onclick="document.getElementById('profile-lightbox').classList.remove('open')" oncontextmenu="return false"></div>
-    <div class="relative z-10 max-w-4xl w-full max-h-[90vh] flex items-center justify-center lightbox-protected" oncontextmenu="return false">
-      <div id="profile-lightbox-img" class="w-full max-h-[85vh] rounded-xl bg-slate-900 bg-no-repeat bg-center bg-contain border-2 border-slate-600 shadow-2xl" style="background-image: url('profile.png'); aspect-ratio: 1;"></div>
-      <button type="button" class="absolute -top-12 right-0 p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition" onclick="document.getElementById('profile-lightbox').classList.remove('open')" aria-label="Close">
-        <i data-lucide="x" class="w-8 h-8"></i>
+  <div id="profile-lightbox" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85" role="dialog" aria-modal="true" aria-label="Profile photo" tabindex="-1">
+    <div class="absolute inset-0" onclick="document.getElementById('profile-lightbox').classList.remove('open')"></div>
+    <div class="relative z-10 max-w-4xl w-full">
+      <div class="profile-frame max-w-lg mx-auto">
+        <div class="profile-inner aspect-square bg-navy bg-no-repeat bg-center bg-contain" style="background-image: url('profile.png');"></div>
+      </div>
+      <button type="button" class="absolute -top-14 right-0 icon-btn w-10 h-10" onclick="document.getElementById('profile-lightbox').classList.remove('open')" aria-label="Close">
+        <i data-lucide="x" class="w-5 h-5"></i>
       </button>
     </div>
   </div>
@@ -452,36 +840,35 @@
       document.querySelectorAll('.profile-img-trigger').forEach(function(btn) {
         btn.addEventListener('click', function() {
           lightbox.classList.add('open');
-          lightbox.querySelector('[data-lucide="x"]') && lucide.createIcons();
+          lucide.createIcons();
         });
       });
       lightbox.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') lightbox.classList.remove('open');
       });
       lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) lightbox.classList.remove('open');
+        if (e.target === lightbox || e.target.classList.contains('absolute')) lightbox.classList.remove('open');
       });
-      lightbox.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
 
-      var phrases = ['Web Security | Network Exploitation | Red Teaming', 'VAPT | PTES | OWASP | MITRE ATT&CK', 'Vulnerability Assessment | Risk Scoring | Reporting'];
+      var phrases = [
+        'Manual Testing · Regression · Agile / Scrum',
+        'Selenium · Pytest · Page Object Model',
+        'REST API · Postman · MySQL Validation'
+      ];
       var el = document.getElementById('typing-text');
       var idx = 0, charIdx = 0, dir = 1, phrase = phrases[0];
-
       function type() {
         if (dir === 1) {
           if (charIdx <= phrase.length) {
             el.textContent = phrase.slice(0, charIdx);
             charIdx++;
-            setTimeout(type, 80);
-          } else {
-            dir = -1;
-            setTimeout(type, 2000);
-          }
+            setTimeout(type, 70);
+          } else { dir = -1; setTimeout(type, 2200); }
         } else {
           if (charIdx > 0) {
             charIdx--;
             el.textContent = phrase.slice(0, charIdx);
-            setTimeout(type, 40);
+            setTimeout(type, 35);
           } else {
             idx = (idx + 1) % phrases.length;
             phrase = phrases[idx];
@@ -494,7 +881,6 @@
 
       var mobileMenu = document.getElementById('mobile-menu');
       var menuToggle = document.getElementById('menu-toggle');
-
       document.querySelectorAll('a[href^="#"]').forEach(function(a) {
         a.addEventListener('click', function(e) {
           var id = this.getAttribute('href');
@@ -504,38 +890,43 @@
             e.preventDefault();
             target.scrollIntoView({ behavior: 'smooth' });
           }
-          if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-            mobileMenu.classList.add('hidden');
-          }
-        });
-      });
-
-      if (menuToggle && mobileMenu) {
-        menuToggle.addEventListener('click', function() {
-          mobileMenu.classList.toggle('hidden');
-        });
-      }
-
-      document.querySelectorAll('.nav-link').forEach(function(a) {
-        a.addEventListener('click', function() {
           if (mobileMenu) mobileMenu.classList.add('hidden');
         });
       });
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', function() { mobileMenu.classList.toggle('hidden'); });
+      }
+      document.querySelectorAll('.nav-link').forEach(function(a) {
+        a.addEventListener('click', function() { if (mobileMenu) mobileMenu.classList.add('hidden'); });
+      });
 
       var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-          if (e.isIntersecting) e.target.classList.add('active');
-        });
-      }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-      document.querySelectorAll('.reveal').forEach(function(r) { observer.observe(r); });
+        entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('active'); });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
       document.querySelectorAll('.reveal').forEach(function(r) {
+        observer.observe(r);
         if (r.getBoundingClientRect().top < window.innerHeight) r.classList.add('active');
       });
 
       var nav = document.getElementById('navbar');
-      window.addEventListener('scroll', function() {
-        nav.classList.toggle('bg-slate-950/95', window.scrollY > 50);
+      var navLinks = document.querySelectorAll('.nav-link-item[data-section]');
+      var sections = [];
+      navLinks.forEach(function(link) {
+        var id = link.getAttribute('data-section');
+        var sec = document.getElementById(id);
+        if (sec) sections.push({ id: id, el: sec, link: link });
       });
+
+      window.addEventListener('scroll', function() {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+        var scrollPos = window.scrollY + 120;
+        var current = sections[0];
+        sections.forEach(function(s) {
+          if (s.el.offsetTop <= scrollPos) current = s;
+        });
+        navLinks.forEach(function(l) { l.classList.remove('active'); });
+        if (current && current.link) current.link.classList.add('active');
+      }, { passive: true });
     });
   </script>
 </body>
